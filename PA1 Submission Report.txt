@@ -1,0 +1,66 @@
+﻿Additionally, you need to submit a report that contains the following three sections:
+* A section describing means to compile and run your code
+* A section listing partition results in terms of cut size and runtime for each PASSED benchmark
+* A section outlining the challenges you encountered and solved during the implementation
+
+
+PA1 Report
+Vedant Grover, Shrey Patel, and Surya Raghavendran
+
+
+Section 1: How to Compile & Run the Code
+
+
+ PA1Final.py input_file_path output_file_path
+
+
+
+
+Section 2: Partition Results
+
+
+Input_0: 
+Runtime: 1.0s
+Cutsize: 75612
+
+
+Input_1: 
+Runtime: 0.0s
+Cutsize: 2521
+
+
+Input_2: 
+Runtime: 0.0s
+Cutsize: 5348
+
+
+Input_3: 
+Runtime: 0.4s
+Cutsize: 46732
+
+
+Input_4: 
+Runtime: 0.8s
+Cutsize: 94268
+
+
+Input_5: 
+Runtime: 2.8s
+Cutsize: 285200
+
+
+Input_6: 
+Runtime: 0.0 s
+Cutsize: 1
+
+
+Section 3: Challenges
+
+
+One of the first challenges we encountered was figuring out how to satisfy and check with the given balance factor equations for the sizes of G1 & G2. Using the given input and the Set Operator in Python, we were able to iterate through and create a list of unique cells that are contained in each input file and having that as n (number of cells) in the equation given, to help ensure the required equality for the two sizes is indeed satisfied. 
+
+
+Another big challenge we had towards the end was missing some cells from the input files that contained nets with multiple lines of cells rather than just one. So while the algorithm and file would still run normally against the input file, after running it against the checker file, it would not pass as many cells wouldn’t be labelled in our output. We identified the error as being in the read_input_file method because it parsed the file by line rather than a semicolon. We then split the input file by sections based on the semicolon, and it would no longer skip any lines of a net. 
+
+
+One of the last big challenges we encountered was deciding how to calculate the final Cutsize after the two groups were created. Making the method more efficient was very crucial to our overall run time for each input file, and the initial run time was too long. As we were using Set Operations in Python to check whether cells of a net were a subset of either of the two groups, it was very long for the large datasets. We then preprocessed the list of cells of both groups and converted them into sets before starting to iterate through them. We also converted each net to a set of cells before iterating through to save time, and combined the checks into just one if statement before determining whether to increase the Cutsize value.
